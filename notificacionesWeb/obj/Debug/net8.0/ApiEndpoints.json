@@ -1,0 +1,394 @@
+[
+  {
+    "ContainingType": "notificacionesWeb.Controller.EmpresasController",
+    "Method": "deleteEmpresa",
+    "RelativePath": "api/Empresas/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.Shared.Models.tb_empresas",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.EmpresasController",
+    "Method": "insertEmpresa",
+    "RelativePath": "api/Empresas/Guardar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.Shared.Models.tb_empresas",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.Shared.Models.tb_empresas",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.EmpresasController",
+    "Method": "getEmpresas",
+    "RelativePath": "api/Empresas/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[notificacionesWeb.Shared.Models.tb_empresas, notificacionesWeb.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.EmpresasController",
+    "Method": "updateEmpresa",
+    "RelativePath": "api/Empresas/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.Shared.Models.tb_empresas",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.Shared.Models.tb_empresas",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.MotivoController",
+    "Method": "deleteMotivo",
+    "RelativePath": "api/Motivo/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.Shared.Models.Tb_Motivo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.MotivoController",
+    "Method": "insertMotivo",
+    "RelativePath": "api/Motivo/Guardar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.Shared.Models.Tb_Motivo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.Shared.Models.Tb_Motivo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.MotivoController",
+    "Method": "getMotivo",
+    "RelativePath": "api/Motivo/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[notificacionesWeb.Shared.Models.Tb_Motivo, notificacionesWeb.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.MotivoController",
+    "Method": "updateMotivo",
+    "RelativePath": "api/Motivo/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.Shared.Models.Tb_Motivo",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.Shared.Models.Tb_Motivo",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.NotificacionController",
+    "Method": "deleteNotification",
+    "RelativePath": "api/Notificacion/delete",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.entity.Models.Notificaciones",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.NotificacionController",
+    "Method": "insertNotification",
+    "RelativePath": "api/Notificacion/Guardar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.entity.Models.Notificaciones",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.entity.Models.Notificaciones",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.NotificacionController",
+    "Method": "getnotificaciones",
+    "RelativePath": "api/Notificacion/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[notificacionesWeb.entity.Models.Notificaciones, notificacionesWeb.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.NotificacionController",
+    "Method": "updateNotification",
+    "RelativePath": "api/Notificacion/update",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.entity.Models.Notificaciones",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.entity.Models.Notificaciones",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.SubMotivoController",
+    "Method": "deleteSubMotivo",
+    "RelativePath": "api/SubMotivo/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.entity.Models.Tb_Sub_Motivos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.SubMotivoController",
+    "Method": "insertSubMotivo",
+    "RelativePath": "api/SubMotivo/Guardar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.entity.Models.Tb_Sub_Motivos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.entity.Models.Tb_Sub_Motivos",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.SubMotivoController",
+    "Method": "getSubMotivo",
+    "RelativePath": "api/SubMotivo/Lista",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[notificacionesWeb.entity.Models.Tb_Sub_Motivos, notificacionesWeb.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "notificacionesWeb.Controller.SubMotivoController",
+    "Method": "updateSubMotivo",
+    "RelativePath": "api/SubMotivo/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "info",
+        "Type": "notificacionesWeb.entity.Models.Tb_Sub_Motivos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "notificacionesWeb.entity.Models.Tb_Sub_Motivos",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\bin\Release\net8.0\notificacionesWeb.entity.deps.json
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\bin\Release\net8.0\notificacionesWeb.entity.dll
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\bin\Release\net8.0\notificacionesWeb.entity.pdb
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\notificacionesWeb.entity.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\notificacionesWeb.entity.AssemblyInfoInputs.cache
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\notificacionesWeb.entity.AssemblyInfo.cs
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\notificacionesWeb.entity.csproj.CoreCompileInputs.cache
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\notificacionesWeb.entity.dll
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\refint\notificacionesWeb.entity.dll
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\notificacionesWeb.entity.pdb
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Release\net8.0\ref\notificacionesWeb.entity.dll

@@ -1,0 +1,233 @@
+﻿@page "/notificaciones"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using notificacionesWeb.entity.Models
+@inject HttpClient http
+@rendermode InteractiveServer
+@using notificacionesWeb.Shared.Models
+
+
+<h1><center>Notificaciónes</center></h1>
+
+@if (listNotificaciones == null)
+{
+    <p><em>Loading...</em></p>
+}
+
+else
+{
+    <br/>
+    <ConfirmDialog @ref="dialog" />
+    <Modal @ref="modal" />
+    <Toasts class="p-3" Messages="messages" AutoHide="true" StackLength="5" Placement="ToastsPlacement.TopRight" />
+    <Button Color="ButtonColor.Primary" @onclick="()=> modificar()">
+        Agregar
+        <Icon Name="IconName.FileEarmarkPlusFill"></Icon>
+    </Button>
+    <br/>
+    <!-- Grid para mostrar notificaciones y empresas combinadas -->
+    <Grid TItem="TbEmpresas_TbNotificacion"
+          class="table table-hover table-bordered table-striped"
+          Responsive="true"
+          EmptyText="No hay información disponible"
+          Data="combinedDataList">
+        <br />
+        <GridColumn TItem="TbEmpresas_TbNotificacion" HeaderText="Título"> @context.Titulo</GridColumn>
+        <GridColumn TItem="TbEmpresas_TbNotificacion" HeaderText="Empresa"> @context.NombreEmpresa</GridColumn>
+        <GridColumn TItem="TbEmpresas_TbNotificacion" HeaderText="Descripción"> @context.Descripcion</GridColumn>
+        <GridColumn TItem="TbEmpresas_TbNotificacion" HeaderText="Fecha Inicio"> @context.FechaInicio.ToString("dd/MM/yyyy")</GridColumn>
+        <GridColumn TItem="TbEmpresas_TbNotificacion" HeaderText="Fecha Fin"> @context.FechaFin.ToString("dd/MM/yyyy")</GridColumn>
+        <GridColumn TItem="TbEmpresas_TbNotificacion" HeaderText="Acciones">
+            <Button Color="ButtonColor.Primary" @onclick="()=> modificar(new Notificaciones { })">
+                @* editar *@
+                <Icon Name="IconName.PencilSquare"></Icon>
+            </Button>
+            <Button Color="ButtonColor.Danger" @onclick="()=> ShowConfirmationAsync(new Notificaciones { })">
+                @*  Anular *@
+                <Icon Name="IconName.Trash2"></Icon>
+            </Button>
+        </GridColumn>
+
+    </Grid>
+
+}
+
+@code {
+    List<Notificaciones>? listNotificaciones = null;
+    List<ToastMessage> messages = new List<ToastMessage>();
+    private ConfirmDialog dialog = default!;
+    private Modal modal = default!;
+    Notificaciones notifiInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await getListaNotificacion();
+        await getListaEmpresas();
+        await CombineData();
+
+
+    }
+
+    private void ShowMessage(ToastType toastType, String msj) => messages.Add(CreateToastMessage(toastType, msj));
+
+    private ToastMessage CreateToastMessage(ToastType toastType, String msj)
+       => new ToastMessage
+       {
+           Type = toastType,
+           Title = "Informacion",
+           HelpText = $"{DateTime.Now}",
+           Message = msj,
+       };
+
+    private async void modificar(Notificaciones info = null)
+    {
+        string titulo = "";
+        var parameters = new Dictionary<string, object>();
+        if (info == null)
+        {
+            titulo = "Nueva Notificación";
+            info = new Notificaciones();
+            info.FechaInicio = info.FechaFin = DateTime.Now;
+           
+        }
+        else
+            titulo = "Actualizar Notificacion";
+
+        notifiInfo = info;
+        parameters.Add("notificacion", info);
+        parameters.Add("OnclickCallback", EventCallback.Factory.Create<MouseEventArgs>(this, ShowDTMessage));
+        parameters.Add("OnClickCallbackGuardar", EventCallback.Factory.Create<EditContext>(this, eventGuardar));
+        await modal.ShowAsync<CreateNotificaction>(title: titulo, parameters: parameters);
+
+    }
+
+    private async void ShowDTMessage(MouseEventArgs e)
+    {
+        await modal.HideAsync();
+    }
+
+    List<tb_empresas>? lista_empresas = null;
+
+
+    private async Task getListaEmpresas()
+    {
+        try
+        {
+            lista_empresas = await http.GetFromJsonAsync<List<tb_empresas>>("/api/Empresas/Lista");
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private async Task getListaNotificacion()
+    {
+        try
+        {
+            listNotificaciones = await http.GetFromJsonAsync<List<Notificaciones>>("/api/Notificacion/Lista");
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private async Task eventGuardar()
+    {
+        try
+        {
+
+            notifiInfo.FechaRegistro = DateTime.Now;
+            if (notifiInfo.idnotificacion == 0)// guardar
+            {
+
+                var temp = await http.PostAsJsonAsync("/api/Notificacion/Guardar", notifiInfo);
+                var info = await temp.Content.ReadFromJsonAsync<Notificaciones>();
+                if (info != null && info.idnotificacion != 0)
+                {
+                    await getListaNotificacion();
+                    ShowMessage(ToastType.Success, "Se guardo con Exito ");
+                }
+
+
+            }
+            else // modifica
+            {
+                var temp = await http.PostAsJsonAsync("/api/Notificacion/update", notifiInfo);
+                var info = await temp.Content.ReadFromJsonAsync<Notificaciones>();
+                if (info != null && info.idnotificacion != 0)
+                {
+                    await getListaNotificacion();
+                    ShowMessage(ToastType.Info, "Se modifico con Exito");
+                }
+
+
+            }
+
+
+
+        }
+        catch (Exception ex)
+        {
+            ShowMessage(ToastType.Info, ex.Message);
+        }
+        finally
+        {
+            await modal.HideAsync();
+        }
+    }
+
+
+    private async Task ShowConfirmationAsync(Notificaciones info)
+    {
+        var confirmation = await dialog.ShowAsync(
+            title: "Seguro desea eliminar esta notificación",
+            message1: ""+info.Titulo);
+
+        if (confirmation)
+        {
+            var temp = await http.PostAsJsonAsync("/api/Notificacion/delete", info);
+            var resulTemp = await temp.Content.ReadFromJsonAsync<bool>();
+            if (resulTemp)
+            {
+                await getListaNotificacion();
+                ShowMessage(ToastType.Danger, "Se Elimino con Exito");
+            }
+        }
+       
+    }
+
+    //Combinar datas para acceder a los campos:
+
+    List<TbEmpresas_TbNotificacion> combinedDataList;
+
+    private async Task CombineData()
+    {
+        try
+        {
+            // Obtener la lista de notificaciones
+            List<Notificaciones> listNotificaciones = await http.GetFromJsonAsync<List<Notificaciones>>("/api/Notificacion/Lista");
+
+            // Obtener la lista de empresas
+            List<tb_empresas> lista_empresas = await http.GetFromJsonAsync<List<tb_empresas>>("/api/Empresas/Lista");
+
+            // Combinar la información de notificaciones y empresas
+            combinedDataList = (from notif in listNotificaciones
+                                join empresa in lista_empresas on notif.id_empresa equals empresa.idempresa
+                                select new TbEmpresas_TbNotificacion
+                                    {
+                                        Titulo = notif.Titulo,
+                                        Descripcion = notif.Descripcion,
+                                        FechaInicio = notif.FechaInicio,
+                                        FechaFin = notif.FechaFin,
+                                        NombreEmpresa = empresa.nom_empresa
+                                    }).ToList();
+        }
+        catch (Exception ex)
+        {
+            // Manejar errores
+        }
+
+
+}
+}

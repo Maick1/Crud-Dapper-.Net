@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\mtomala\\Documents\\Proyectos\\notificacionWebRar\\notificacionesWeb\\notificacionesWeb\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\notificacionesWeb.bundle.scp.css",
+      "PackagePath": "staticwebassets\\notificacionesWeb.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\mtomala\\Documents\\Proyectos\\notificacionWebRar\\notificacionesWeb\\notificacionesWeb\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\mtomala\\Documents\\Proyectos\\notificacionWebRar\\notificacionesWeb\\notificacionesWeb\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\mtomala\\Documents\\Proyectos\\notificacionWebRar\\notificacionesWeb\\notificacionesWeb\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\mtomala\\Documents\\Proyectos\\notificacionWebRar\\notificacionesWeb\\notificacionesWeb\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.notificacionesWeb.props",
+      "PackagePath": "build\\notificacionesWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.notificacionesWeb.props",
+      "PackagePath": "buildMultiTargeting\\notificacionesWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.notificacionesWeb.props",
+      "PackagePath": "buildTransitive\\notificacionesWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.notificacionesWeb.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

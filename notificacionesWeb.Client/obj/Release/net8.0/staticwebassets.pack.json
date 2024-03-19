@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Documentos\\C# Proyectos\\notificacionesWeb\\notificacionesWeb.Client\\bin\\Release\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "D:\\Documentos\\C# Proyectos\\notificacionesWeb\\notificacionesWeb.Client\\obj\\Release\\net8.0\\compressed\\fs9whk0adq.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "D:\\Documentos\\C# Proyectos\\notificacionesWeb\\notificacionesWeb.Client\\wwwroot\\appsettings.Development.json",
+      "PackagePath": "staticwebassets\\appsettings.Development.json"
+    },
+    {
+      "Id": "D:\\Documentos\\C# Proyectos\\notificacionesWeb\\notificacionesWeb.Client\\wwwroot\\appsettings.json",
+      "PackagePath": "staticwebassets\\appsettings.json"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.notificacionesWeb.Client.props",
+      "PackagePath": "build\\notificacionesWeb.Client.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.notificacionesWeb.Client.props",
+      "PackagePath": "buildMultiTargeting\\notificacionesWeb.Client.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.notificacionesWeb.Client.props",
+      "PackagePath": "buildTransitive\\notificacionesWeb.Client.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.notificacionesWeb.Client.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

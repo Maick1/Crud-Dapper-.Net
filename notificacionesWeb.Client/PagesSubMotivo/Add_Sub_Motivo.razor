@@ -1,0 +1,111 @@
+﻿@using notificacionesWeb.Shared.Models
+@using notificacionesWeb.entity.Models
+@inject HttpClient http
+
+<EditForm Model="submotivo" OnValidSubmit="OnClickCallbackGuardar">
+    <DataAnnotationsValidator />
+
+    @if (submotivo.id_sub_motivo != 0)
+    {
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">ID:</label>
+            <div class="col-sm-9">
+                <input class="form-control" value="@submotivo.id_sub_motivo" readonly />
+            </div>
+        </div>
+    }
+    <br/>
+    <div class="form-group">
+        <label>Nombre del Motivo:</label>
+        <InputSelect @bind-Value="@submotivo.motivoEm.idmotivo" class="form-control">
+            <option value="">Seleccionar Submotivo</option>
+
+            @if (lista_motivo != null && lista_motivo.Any())
+            {
+                foreach (var motivo in lista_motivo)
+                {
+                    <option value="@motivo.idmotivo">@motivo.nom_motivo</option>
+                }
+            }
+            else
+            {
+                <option disabled>No hay empresas disponibles</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => submotivo.motivoEm.idmotivo)" />
+    </div>
+    <br/>
+
+    <div class="form-group">
+        <label>Nombre del SubMotivo:</label>
+        <InputSelect @bind-Value="@submotivo.nom_sub_motivo" class="form-control">
+            <option value="">Seleccionar Submotivo</option>
+
+            @if (lista_sub_motivo != null && lista_sub_motivo.Any())
+            {
+                foreach (var submotivo in lista_sub_motivo)
+                {
+                    <option value="@submotivo.nom_sub_motivo">@submotivo.nom_sub_motivo</option>
+                }
+            }
+            else
+            {
+                <option disabled>No hay Submotivos disponibles</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => submotivo.id_sub_motivo)" />
+    </div>
+
+    <br/>
+    <div class="form-group row">
+        <div class="col-sm-12 text-center">
+            <Button Color="ButtonColor.Secondary" @onclick="OnClickCallback">Cancelar</Button>
+            <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Guardar</Button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter] public Tb_Sub_Motivos submotivo { get; set; }
+
+    [Parameter] public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    [Parameter] public EventCallback<EditContext> OnClickCallbackGuardar { get; set; }
+
+    List<Tb_Motivo>? lista_motivo;
+    List<Tb_Sub_Motivos>? lista_sub_motivo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetListaMotivo();
+        await GetListaSubMotivo();
+        submotivo.estado = "A";
+
+    }
+
+    private async Task GetListaMotivo()
+    {
+        try
+        {
+            lista_motivo = await http.GetFromJsonAsync<List<Tb_Motivo>>("/api/Motivo/Lista");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al obtener la lista de motivos: {ex.Message}");
+           
+        }
+    }
+
+    private async Task GetListaSubMotivo()
+    {
+        try
+        {
+            lista_sub_motivo = await http.GetFromJsonAsync<List<Tb_Sub_Motivos>>("/api/SubMotivo/Lista");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al obtener la lista de submotivos: {ex.Message}");
+           
+        }
+    }
+}

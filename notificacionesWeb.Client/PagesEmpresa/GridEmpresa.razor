@@ -1,0 +1,200 @@
+﻿@page "/empresa"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using notificacionesWeb.Shared.Models
+@using notificacionesWeb.entity.Models
+@inject HttpClient http
+@rendermode InteractiveServer
+
+<h1><center>Lista de Empresas</center</h1>
+
+@if (listEmpresa == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <ConfirmDialog @ref="dialog" />
+    <Modal @ref="modal" />
+    <Toasts class="p-3" Messages="messages" AutoHide="true" StackLength="3" Placement="ToastsPlacement.TopRight" />
+    <br/>
+    <Button Color="ButtonColor.Primary" @onclick="()=> modificar()">
+        Agregar
+        <Icon Name="IconName.FileEarmarkPlusFill"></Icon>
+    </Button>
+
+    <Grid TItem="tb_empresas"
+          class="table table-hover table-bordered table-striped"
+          Responsive="true"
+          EmptyText="No hay informacion Disponible"
+          Data="listEmpresa">
+        <br/>
+        <br/>
+        <br/>
+        <GridColumn TItem="tb_empresas" HeaderText="ID"> @context.idempresa</GridColumn>
+        <GridColumn TItem="tb_empresas" HeaderText="Nombre Empresa"> @context.nom_empresa</GridColumn>
+        <GridColumn TItem="tb_empresas" HeaderText="RucEmpresa"> @context.ruc_empresa</GridColumn>
+        <GridColumn TItem="tb_empresas" HeaderText="DiasGracias"> @context.dias_gracia</GridColumn>
+         <GridColumn TItem="tb_empresas" HeaderText="Acciones">
+        
+                    <Button Color="ButtonColor.Primary" @onclick="()=> modificar(context)">
+                        @* editar *@
+                        <Icon Name="IconName.PencilSquare"></Icon>
+                    </Button>
+                <Button Color="ButtonColor.Danger" @onclick="()=> ShowConfirmationAsync(context)">
+                       @*  Anular *@
+                        <Icon Name="IconName.Trash2"></Icon>
+                    </Button>
+            </GridColumn>
+
+
+    </Grid>
+
+
+}
+
+
+
+
+@code {
+    List<tb_empresas>? listEmpresa = null;
+    List<ToastMessage> messages = new List<ToastMessage>();
+    private ConfirmDialog dialog = default!;
+    private Modal modal = default!;
+    tb_empresas notifiInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+       // await getListaNotificacion();
+        await getListaEmpresa();
+
+    }
+
+    private void ShowMessage(ToastType toastType, String msj) => messages.Add(CreateToastMessage(toastType, msj));
+
+    private ToastMessage CreateToastMessage(ToastType toastType, String msj)
+       => new ToastMessage
+           {
+               Type = toastType,
+               Title = "Informacion",
+               HelpText = $"{DateTime.Now}",
+               Message = msj,
+           };
+
+   private async void modificar(tb_empresas info = null)
+{
+    string titulo = "";
+    var parameters = new Dictionary<string, object>();
+    if (info == null)
+    {
+      titulo = "Nueva Empresa";
+      info = new tb_empresas();
+      info.idempresa = info.idempresa;
+      info.nom_empresa = info.nom_empresa;
+      info.ruc_empresa = info.ruc_empresa;
+      info.dias_gracia = info.dias_gracia;
+       
+    }
+    else
+    {
+        titulo = "Update Empresa";
+    }
+
+    notifiInfo = info;
+    parameters.Add("empresa", info);
+    parameters.Add("OnclickCallback", EventCallback.Factory.Create<MouseEventArgs>(this, ShowDTMessage));
+    parameters.Add("OnClickCallbackGuardar", EventCallback.Factory.Create<EditContext>(this, eventGuardar));
+    await modal.ShowAsync<AddEmpresa>(title: titulo, parameters: parameters);
+}
+
+//uso para listar
+    private async void ShowDTMessage(MouseEventArgs e)
+    {
+        await modal.HideAsync();
+    }
+
+    private async Task getListaEmpresa()
+    {
+        try
+        {
+            listEmpresa = await http.GetFromJsonAsync<List<tb_empresas>>("/api/Empresas/Lista");
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+//Evento de guardar-
+     private async Task eventGuardar()
+    {
+        try
+        {
+
+            //notifiInfo.FechaRegistro = DateTime.Now;
+            if (notifiInfo.idempresa == 0)// guardar
+            {
+
+                var temp = await http.PostAsJsonAsync("/api/Empresas/Guardar", notifiInfo);
+                var info = await temp.Content.ReadFromJsonAsync<tb_empresas>();
+                if (info != null && info.idempresa != 0)
+                {
+                    await getListaEmpresa();
+                    ShowMessage(ToastType.Success, "Se guardo con Exito ");
+                }
+
+
+            }
+            else // modifica
+            {
+                var temp = await http.PostAsJsonAsync("/api/Empresas/update", notifiInfo);
+                var info = await temp.Content.ReadFromJsonAsync<tb_empresas>();
+                if (info != null && info.idempresa != 0)
+                {
+                    await getListaEmpresa();
+                    ShowMessage(ToastType.Info, "Se modifico con Exito");
+                }
+
+
+            }
+
+
+
+        }
+        catch (Exception ex)
+        {
+            ShowMessage(ToastType.Info, ex.Message);
+        }
+        finally
+        {
+            await modal.HideAsync();
+        }
+
+
+
+    }
+
+
+    private async Task ShowConfirmationAsync(tb_empresas info)
+    {
+        var confirmation = await dialog.ShowAsync(
+            title: "Seguro desea eliminar esta notificación",
+            message1: "" + info.idempresa);
+
+        if (confirmation)
+        {
+            var temp = await http.PostAsJsonAsync("/api/Empresas/delete", info);
+            var resulTemp = await temp.Content.ReadFromJsonAsync<bool>();
+            if (resulTemp)
+            {
+                await getListaEmpresa();
+                ShowMessage(ToastType.Danger, "Se Elimino con Exito");
+            }
+        }
+
+    }
+
+
+
+}

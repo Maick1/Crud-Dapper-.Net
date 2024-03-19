@@ -1,0 +1,192 @@
+﻿@using notificacionesWeb.Shared.Models
+@using notificacionesWeb.entity.Models
+@inject HttpClient http
+
+
+<EditForm Model="notificacion" OnValidSubmit="OnClickCallbackGuardar">
+    <DataAnnotationsValidator />
+    @if (notificacion.idnotificacion != 0)
+    {
+        <label>ID:</label>
+
+        <div class="row">
+            <div class="col-5 col-md-3 text-end"> Id :</div>
+            <div class="col-7 col-md-9">@notificacion.idnotificacion</div>
+        </div>
+    }
+
+<div class="row">
+    <div class=" col-sm-12">
+        <label>titulo:</label>
+            <InputText class="form-control" @bind-Value="@notificacion.Titulo" />
+            <ValidationMessage For="@(() => notificacion.Titulo)" />
+    </div>
+</div>
+    <br/>
+<div class="row">
+    <div class="col-sm-12">
+        <label>Descripción:</label>
+        <InputText class="form-control" @bind-Value="@notificacion.Descripcion" />
+            <ValidationMessage For="@(() => notificacion.Descripcion)" />
+    </div>
+</div>
+    <br/>
+<div class="row">
+    <div class=" col-sm-12">
+        <label>Fecha Inicio:</label>
+            <DateInput TValue="DateTime" @bind-Value="@notificacion.FechaInicio" Placeholder="Fecha Inicio" />
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class=" col-sm-12">
+        <label>Fecha Fin:</label>
+            <DateInput TValue="DateTime" @bind-Value="@notificacion.FechaFin" Placeholder="Fecha Fin" />
+    </div>
+</div>
+
+<br/>
+
+    <label>Nombre de la Empresa:</label>
+    <InputSelect @bind-Value="@notificacion.empresa.idempresa" class="form-control">
+        <option value="">Seleccionar Empresa</option>
+        @if (lista_empresas != null && lista_empresas.Any())
+        {
+            foreach (var empresa in lista_empresas)
+            {
+                <option value="@empresa.idempresa">@empresa.nom_empresa</option>
+            }
+        }
+        else
+        {
+            <option disabled>No hay empresas disponibles</option>
+        }
+    </InputSelect>
+    <ValidationMessage For="@(() => notificacion.empresa.idempresa)" />
+
+    @if (@notificacion.empresa.idempresa == 0 && lista_empresas != null && lista_empresas.Any())
+    {
+        <p class="text-danger">Por favor selecciona una empresa.</p>
+    }
+
+    @* ////////////////////////////////////////////////////////////////////////// *@
+    @* Formulario de Motivo *@
+    <label>Nombre del Motivo:</label>
+    <InputSelect @bind-Value="@notificacion.Mo_motivo.idmotivo" class="form-control">
+        <option value="">Seleccionar un Motivo</option>
+        @if (lista_motivo != null && lista_motivo.Any())
+        {
+            foreach (var vamotivo in lista_motivo)
+            {
+                <option value="@vamotivo.idmotivo">@vamotivo.nom_motivo</option>
+            }
+        }
+        else
+        {
+            <option disabled>No hay Motivo Disponibles</option>
+        }
+    </InputSelect>
+    <ValidationMessage For="@(() => notificacion.Mo_motivo.idmotivo)" />
+
+    @if (@notificacion.Mo_motivo.idmotivo == 0 && lista_motivo != null && lista_motivo.Any())
+    {
+        <p class="text-danger">Por favor selecciona un Motivo.</p>
+    }
+
+    @* ////////////////////////////////////////////////////////////////////////// *@
+    @* Formulario de Sub-Motivo *@
+    <label>Nombre del Sub-Motivo:</label>
+    <InputSelect @bind-Value="@notificacion.Sub_Motivos.id_sub_motivo" class="form-control">
+        <option value="">Seleccionar un Sub-Motivo</option>
+        @if (lista_Sub_Motivos != null && lista_Sub_Motivos.Any())
+        {
+            foreach (var vasubmotivo in lista_Sub_Motivos)
+            {
+                <option value="@vasubmotivo.id_sub_motivo">@vasubmotivo.nom_sub_motivo</option>
+            }
+        }
+        else
+        {
+            <option disabled>No hay Sub-Motivo Disponibles</option>
+        }
+    </InputSelect>
+    <ValidationMessage For="@(() => notificacion.Sub_Motivos.id_sub_motivo)" />
+
+    @if (@notificacion.Sub_Motivos.id_sub_motivo == 0 && lista_Sub_Motivos != null && lista_Sub_Motivos.Any())
+    {
+        <p class="text-danger">Por favor selecciona un Sub-Motivo.</p>
+    }
+
+    <br/>
+<div class="row">
+    <div class=" text-center">
+            <Button Color="ButtonColor.Secondary" @onclick="OnClickCallback">Cancelar</Button>
+            <Button Color="ButtonColor.Primary" Type="ButtonType.Submit" >Guardar</Button>
+    </div>
+</div>
+
+</EditForm>
+
+@code {
+
+    [Parameter] public  Notificaciones notificacion { get; set; } 
+
+    [Parameter] public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    [Parameter] public EventCallback<EditContext> OnClickCallbackGuardar { get; set; }
+
+    List<tb_empresas>? lista_empresas = null;
+    List<Tb_Motivo>? lista_motivo = null;
+    List<Tb_Sub_Motivos>? lista_Sub_Motivos = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        if (notificacion.idnotificacion == 0)
+            notificacion.FechaFin = notificacion.FechaInicio = DateTime.Now;
+        await getListaEmpresas();
+        await getListaMotivo();
+        await getListaSubMotivos();
+    }
+
+
+    private async Task getListaEmpresas()
+    {
+        try
+        {
+            lista_empresas = await http.GetFromJsonAsync<List<tb_empresas>>("/api/Empresas/Lista");
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+    //Motivo
+    private async Task getListaMotivo()
+    {
+        try
+        {
+            lista_motivo = await http.GetFromJsonAsync<List<Tb_Motivo>>("/api/Motivo/Lista");
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    //Lista de SubMotivo 
+    private async Task getListaSubMotivos()
+    {
+        try
+        {
+            lista_Sub_Motivos = await http.GetFromJsonAsync<List<Tb_Sub_Motivos>>("/api/SubMotivo/Lista");
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+
+
+ 
+}

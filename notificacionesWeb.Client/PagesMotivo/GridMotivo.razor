@@ -1,0 +1,197 @@
+﻿@page "/motivo"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using notificacionesWeb.Shared.Models
+@using notificacionesWeb.entity.Models
+@inject HttpClient http
+@rendermode InteractiveServer
+
+
+<h1><center>Motivos de Empresas</center</h1>
+
+@if (listMotivo == null)
+
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <ConfirmDialog @ref="dialog" />
+    <Modal @ref="modal" />
+    <Toasts class="p-3" Messages="messages" AutoHide="true" StackLength="3" Placement="ToastsPlacement.TopRight" />
+    <br/>
+    <Button Color="ButtonColor.Primary" @onclick="()=> modificar()">
+        Agregar
+        <Icon Name="IconName.FileEarmarkPlusFill"></Icon>
+    </Button>
+
+    <Grid TItem="Tb_Motivo"
+          class="table table-hover table-bordered table-striped"
+          Responsive="true"
+          EmptyText="No hay informacion Disponible"
+          Data="listMotivo">
+        <br/>
+        <br/>
+        <br/>
+        <GridColumn TItem="Tb_Motivo" HeaderText="#"> @context.idmotivo</GridColumn>
+        <GridColumn TItem="Tb_Motivo" HeaderText="Motivo"> @context.nom_motivo</GridColumn>
+        <GridColumn TItem="Tb_Motivo" HeaderText="Estado"> @context.estado</GridColumn>
+         <GridColumn TItem="Tb_Motivo" HeaderText="Acciones">
+        
+                    <Button Color="ButtonColor.Primary" @onclick="()=> modificar(context)">
+                        @* editar *@
+                        <Icon Name="IconName.PencilSquare"></Icon>
+                    </Button>
+                <Button Color="ButtonColor.Danger" @onclick="()=> ShowConfirmationAsync(context)">
+                       @*  Anular *@
+                        <Icon Name="IconName.Trash2"></Icon>
+                    </Button>
+            </GridColumn>
+    </Grid>
+
+
+}
+
+@code {
+    
+    List<Tb_Motivo>? listMotivo = null;
+    List<ToastMessage> messages = new List<ToastMessage>();
+    private ConfirmDialog dialog = default!;
+    private Modal modal = default!;
+    Tb_Motivo notifiInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+       // await getListaNotificacion();
+        await getListaMotivo();
+
+    }
+
+    private void ShowMessage(ToastType toastType, String msj) => messages.Add(CreateToastMessage(toastType, msj));
+
+    private ToastMessage CreateToastMessage(ToastType toastType, String msj)
+       => new ToastMessage
+           {
+               Type = toastType,
+               Title = "Informacion",
+               HelpText = $"{DateTime.Now}",
+               Message = msj,
+           };
+
+   private async void modificar(Tb_Motivo info = null)
+{
+    string titulo = "";
+    var parameters = new Dictionary<string, object>();
+    if (info == null)
+    {
+      titulo = "Nuevo Motivo";
+      info = new Tb_Motivo();
+      info.idmotivo = info.idmotivo;
+      info.nom_motivo = info.nom_motivo;
+      info.estado = info.estado;
+     
+       
+    }
+    else
+    {
+        titulo = "Actualizar Motivo";
+    }
+
+    notifiInfo = info;
+    parameters.Add("Motivo", info);
+    parameters.Add("OnclickCallback", EventCallback.Factory.Create<MouseEventArgs>(this, ShowDTMessage));
+    parameters.Add("OnClickCallbackGuardar", EventCallback.Factory.Create<EditContext>(this, eventGuardar));
+    await modal.ShowAsync<AddMotivo>(title: titulo, parameters: parameters);
+}
+
+//uso para listar
+    private async void ShowDTMessage(MouseEventArgs e)
+    {
+        await modal.HideAsync();
+    }
+
+    private async Task getListaMotivo()
+    {
+        try
+        {
+            listMotivo = await http.GetFromJsonAsync<List<Tb_Motivo>>("/api/Motivo/Lista");
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+//Evento de guardar-
+     private async Task eventGuardar()
+    {
+        try
+        {
+
+            //notifiInfo.FechaRegistro = DateTime.Now;
+            if (notifiInfo.idmotivo == 0)// guardar
+            {
+
+                var temp = await http.PostAsJsonAsync("/api/Motivo/Guardar", notifiInfo);
+                var info = await temp.Content.ReadFromJsonAsync<Tb_Motivo>();
+                if (info != null && info.idmotivo != 0)
+                {
+                    await getListaMotivo();
+                    ShowMessage(ToastType.Success, "Se guardo con Exito ");
+                }
+
+
+            }
+            else // modifica
+            {
+                var temp = await http.PostAsJsonAsync("/api/Motivo/update", notifiInfo);
+                var info = await temp.Content.ReadFromJsonAsync<Tb_Motivo>();
+                if (info != null && info.idmotivo != 0)
+                {
+                    await getListaMotivo();
+                    ShowMessage(ToastType.Info, "Se modifico con Exito");
+                }
+
+
+            }
+
+
+
+        }
+        catch (Exception ex)
+        {
+            ShowMessage(ToastType.Info, ex.Message);
+        }
+        finally
+        {
+            await modal.HideAsync();
+        }
+
+
+
+    }
+
+
+    private async Task ShowConfirmationAsync(Tb_Motivo info)
+    {
+        var confirmation = await dialog.ShowAsync(
+            title: "Seguro desea eliminar esta notificación",
+            message1: "" + info.idmotivo);
+
+        if (confirmation)
+        {
+            var temp = await http.PostAsJsonAsync("/api/Motivo/update", info);
+            var resulTemp = await temp.Content.ReadFromJsonAsync<bool>();
+            if (resulTemp)
+            {
+                await getListaMotivo();
+                ShowMessage(ToastType.Danger, "Se Elimino con Exito");
+            }
+        }
+
+    }
+
+
+
+}

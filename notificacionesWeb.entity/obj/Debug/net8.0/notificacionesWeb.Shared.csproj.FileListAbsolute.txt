@@ -1,0 +1,23 @@
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\bin\Debug\net8.0\notificacionesWeb.Shared.deps.json
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\bin\Debug\net8.0\notificacionesWeb.Shared.dll
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\bin\Debug\net8.0\notificacionesWeb.Shared.pdb
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.AssemblyInfoInputs.cache
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.AssemblyInfo.cs
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.csproj.CoreCompileInputs.cache
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.dll
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\refint\notificacionesWeb.Shared.dll
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.pdb
+D:\Documentos\C# Proyectos\notificacionesWeb.entity\obj\Debug\net8.0\ref\notificacionesWeb.Shared.dll
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\bin\Debug\net8.0\notificacionesWeb.Shared.deps.json
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\bin\Debug\net8.0\notificacionesWeb.Shared.dll
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\bin\Debug\net8.0\notificacionesWeb.Shared.pdb
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.AssemblyInfoInputs.cache
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.AssemblyInfo.cs
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.csproj.CoreCompileInputs.cache
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.dll
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\refint\notificacionesWeb.Shared.dll
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.pdb
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\ref\notificacionesWeb.Shared.dll
+C:\Users\mtomala\Documents\Proyectos\notificacionWebRar\notificacionesWeb.entity\obj\Debug\net8.0\notificacionesWeb.Shared.csproj.AssemblyReference.cache

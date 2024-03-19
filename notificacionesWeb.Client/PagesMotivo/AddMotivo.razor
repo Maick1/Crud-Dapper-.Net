@@ -1,0 +1,44 @@
+﻿@using notificacionesWeb.Shared.Models
+<EditForm Model=" Motivo" OnValidSubmit="OnClickCallbackGuardar">
+    <DataAnnotationsValidator />
+    @if (Motivo.idmotivo != 0)
+    {
+        <div class="row">
+            <div class="col-5 col-md-3 text-end"># </div>
+            <div class="col-7 col-md-9">
+                <InputNumber class="form-control" @bind-Value="Motivo.idmotivo" />
+            </div>
+        </div>
+    }
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Motivo de la Empresa</label>
+            <InputText class="form-control" @bind-Value="Motivo.nom_motivo" />
+            <ValidationMessage For="@(() => Motivo.nom_motivo)" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Estado de la Empresa</label>
+            <InputText class="form-control" @bind-Value="Motivo.estado" />
+            <ValidationMessage For="@(() => Motivo.nom_motivo)" />
+        </div>
+    </div>
+  
+
+    <br />
+    <div class="row">
+        <div class="text-center">
+            <Button Color="ButtonColor.Secondary" @onclick="OnClickCallback">Cancelar</Button>
+            <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Guardar</Button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public Tb_Motivo Motivo { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    [Parameter] public EventCallback<EditContext> OnClickCallbackGuardar { get; set; }
+}

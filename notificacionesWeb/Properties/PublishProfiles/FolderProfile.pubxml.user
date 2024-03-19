@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>\\10.0.0.10\inetpub\wwwroot\page_notificacion\</_PublishTargetUrl>
+    <History>True|2024-03-04T17:14:18.1981327Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

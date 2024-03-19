@@ -1,0 +1,50 @@
+﻿@using notificacionesWeb.Shared.Models
+<EditForm Model="empresa" OnValidSubmit="OnClickCallbackGuardar">
+    <DataAnnotationsValidator />
+    @if (empresa.idempresa != 0)
+    {
+        <div class="row">
+            <div class="col-5 col-md-3 text-end">Secuencia: </div>
+            <div class="col-7 col-md-9">
+                <InputNumber class="form-control" @bind-Value="empresa.idempresa" />
+            </div>
+        </div>
+    }
+    <br/>
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Nombre de la Empresa</label>
+            <InputText class="form-control" @bind-Value="empresa.nom_empresa" />
+            <ValidationMessage For="@(() => empresa.nom_empresa)" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <label>Ruc de la Empresa</label>
+            <InputText class="form-control" @bind-Value="empresa.ruc_empresa" />
+            <ValidationMessage For="@(() => empresa.ruc_empresa)" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-5 col-md-3 text-end">Días de Gracia</div>
+        <div class="col-7 col-md-9">
+            <InputNumber class="form-control" @bind-Value="empresa.dias_gracia" />
+        </div>
+    </div>
+
+    <br/>
+    <div class="row">
+        <div class="text-center">
+            <Button Color="ButtonColor.Secondary" @onclick="OnClickCallback">Cancelar</Button>
+            <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Guardar</Button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public tb_empresas empresa { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    [Parameter] public EventCallback<EditContext> OnClickCallbackGuardar { get; set; }
+}
